@@ -44,8 +44,12 @@ RUN \
       ssl-cert \
       dnsutils \
       imagemagick \
-      unzip \
-  && \
+      unzip && \
+      apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY files/etc-post/ports.conf /etc/apache2/
+
+RUN \
   a2enmod rewrite && \
   a2enmod ssl && \
   a2ensite default-ssl && \
@@ -55,7 +59,7 @@ RUN \
   # Drush 8 is the current stable that supports Drupal version 6, 7 and 8.
   curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer && \
   composer global require drush/drush:8.* && \
-  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  rm -rf /tmp/* /var/tmp/*
 
 ENV PHP_DEFAULT_EXTENSIONS calendar ctype curl dom exif fileinfo ftp gd gettext iconv json mcrypt mysql mysqli mysqlnd opcache pdo pdo_mysql phar posix readline shmop simplexml soap sockets sysvmsg sysvsem sysvshm tokenizer wddx xhprof xml xmlreader xmlwriter xsl mbstring zip
 
