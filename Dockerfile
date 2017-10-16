@@ -50,6 +50,7 @@ RUN \
 COPY files/etc-post/ports.conf /etc/apache2/
 
 RUN \
+  a2enmod headers && \
   a2enmod rewrite && \
   a2enmod ssl && \
   a2ensite default-ssl && \
