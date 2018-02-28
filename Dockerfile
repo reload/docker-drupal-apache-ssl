@@ -53,6 +53,8 @@ RUN \
   a2enmod headers && \
   a2enmod rewrite && \
   a2enmod ssl && \
+  a2enmod proxy && \
+  a2enmod proxy_http && \
   a2ensite default-ssl && \
   a2enconf drupal && \
   phpenmod drupal-recommended && \
